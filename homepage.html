@@ -13,7 +13,8 @@
             font-family: 'Arial', sans-serif;
         }
         body {
-            background-color: #f9f9f9;
+            background-image: url(pic1.jpg);
+            background-color: #4e185d;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,10 +26,15 @@
             width: 100%;
             max-width: 1000px;
             padding: 40px;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.9); /* More transparent */
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
             text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         /* Header */
         .container header {
@@ -38,28 +44,40 @@
             margin-bottom: 20px;
         }
         .container header img {
-            width: 150px;
-            height: auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .container header img:hover {
+            transform: rotate(360deg);
         }
         .container h1 {
             font-size: 2.5em;
-            color: #1e88e5;
+            color: #215d29;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         .container p {
             font-size: 1.2em;
             margin-bottom: 40px;
             color: #666;
             line-height: 1.6;
+            animation: fadeIn 2s ease-in-out;
         }
         /* Features Section */
         .features {
             text-align: left;
             margin: 40px 0;
+            animation: fadeIn 1.5s ease-in-out;
         }
         .features h2 {
             font-size: 2em;
             margin-bottom: 20px;
-            color: #1e88e5;
+            color: #215d29;
         }
         .features ul {
             list-style: none;
@@ -71,7 +89,7 @@
         }
         .features ul li::before {
             content: "✓";
-            color: #1e88e5;
+            color: #215d29;
             margin-right: 10px;
         }
         /* Button Styling */
@@ -89,33 +107,136 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
+        .login-btn {
+            background-color: #17b229;;
+            color: white;
+        }
+        .login-btn:hover {
+            background-color: #1b7c36;
+        }
         .signup-btn {
             background-color: #1e88e5;
-            color: white;
+            color: #ffffff;
         }
         .signup-btn:hover {
             background-color: #1565c0;
-        }
-        .login-btn {
-            background-color: #e0e0e0;
-            color: #333;
-        }
-        .login-btn:hover {
-            background-color: #bdbdbd;
         }
         /* Footer */
         .footer {
             margin-top: 50px;
             font-size: 0.9em;
             color: #999;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        /* Navigation Links */
+        nav a {
+            margin: 0 10px;
+            color: #215d29;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #215d29;
+        }
+        /* Our Mission Section */
+        .mission {
+            margin: 50px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .mission h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #215d29;
+        }
+        .mission p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #215d29;
+        }
+        /* Testimonials Section */
+        .testimonials {
+            margin: 50px 0;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+        .testimonials h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #215d29;
+        }
+        .testimonial {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f3f4f6;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial p {
+            font-size: 1.1em;
+            color: #666;
+        }
+        .testimonial strong {
+            display: block;
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #333;
+        }
+        /* Contact Us Section */
+        .contact {
+            margin: 50px 0;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .contact h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #1e88e5;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-size: 1em;
+        }
+        .contact-form button {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .contact-form button:hover {
+            background-color: #1565c0;
+        }
+        .confirmation {
+            display: none;
+            color: #4caf50;
+            margin-top: 20px;
+            font-size: 1em;
+            animation: fadeIn 1s ease-in-out;
         }
     </style>
+    <script>
+        function showConfirmation(event) {
+            event.preventDefault();
+            document.querySelector('.confirmation').style.display = 'block';
+        }
+        document.querySelector('.contact-form').addEventListener('submit', showConfirmation);
+    </script>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <img src="logo.png" projectalt="StudyHub Logo">
+            <img src="logo.png" alt="StudyHub Logo">
             <nav>
                 <a href="home.html">Home</a> |
                 <a href="about.html">About</a> |
@@ -127,8 +248,8 @@
         <p>Discover a comprehensive collection of engineering study materials designed for students like you. Access semester-wise notes, question papers, and video tutorials to guide you through each subject with ease.</p>
         
         <div class="button-group">
-            <a href="signup.html" class="button signup-btn">Sign Up for Free</a>
-            <a href="login.html" class="button login-btn">Already a Member? Log In</a>
+            <a href="login.html" class="button login-btn">Login</a>
+            <a href="signup.html" class="button signup-btn">Signup</a>
         </div>
         
         <section class="features">
@@ -142,6 +263,34 @@
                 <li>Regular updates and new content added frequently.</li>
                 <li>Join a community of like-minded students.</li>
             </ul>
+        </section>
+
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p>At StudyHub, our mission is to empower engineering students by providing easy access to quality study materials. We believe that education should be accessible to all, and we strive to support students in achieving their academic goals through a user-friendly platform and expertly curated content.</p>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial">
+                <p>"StudyHub has been a game-changer for me. The notes and question papers are well-organized and easy to access. Highly recommended for all engineering students!"</p>
+                <strong>- Ananya, Computer Science Student</strong>
+            </div>
+            <div class="testimonial">
+                <p>"The video tutorials on StudyHub helped me understand complex concepts with ease. It's like having a personal tutor available 24/7."</p>
+                <strong>- Rahul, Electronics Student</strong>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="confirmation">Thank you! Your message has been sent.</div>
         </section>
 
         <div class="footer">
