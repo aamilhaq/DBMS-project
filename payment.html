@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f4f4f4;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        h1 {
+            color: #164f37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .qr-code {
+            margin-bottom: 20px;
+        }
+        .instructions {
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .upload-container {
+            margin-top: 20px;
+        }
+        .upload-container input {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #164f37;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            font-size: 1em;
+        }
+        .btn:disabled {
+            background-color: #bbb;
+            cursor: not-allowed;
+        }
+        .btn:hover:enabled {
+            background-color: #0c3726;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pay ₹100</h1>
+        <div class="instructions">
+            Scan the QR code below to pay ₹100
+        </div>
+
+        <!-- Dummy QR Code Image -->
+        <div class="qr-code">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=example@upi&pn=Your%20Name&am=100&cu=INR" alt="QR Code" />
+        </div>
+
+        <button class="btn" onclick="confirmPayment()">I have paid</button>
+
+        <!-- Image Upload Section -->
+        <div class="upload-container" id="uploadContainer" style="display: none;">
+            <div class="success">Payment Confirmed!</div>
+            <label for="imageUpload">Attach an image (mandatory):</label>
+            <input type="file" id="imageUpload" accept="image/*" required onchange="validateImageUpload()">
+            <button class="btn" id="submitButton" disabled>Submit</button>
+        </div>
+    </div>
+
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS User ID
+        })();
+
+        // Show the upload section after payment confirmation
+        function confirmPayment() {
+            alert("Thank you for the payment!");
+            document.getElementById('uploadContainer').style.display = 'block';
+        }
+
+        // Validate image upload
+        function validateImageUpload() {
+            const imageInput = document.getElementById('imageUpload');
+            const submitButton = document.getElementById('submitButton');
+            
+            if (imageInput.files.length > 0) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
+
+        // Send the image via EmailJS after upload
+        document.getElementById('submitButton').addEventListener('click', async () => {
+            const imageInput = document.getElementById('imageUpload');
+            const file = imageInput.files[0];
+
+            if (!file) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            // Prepare form data for EmailJS
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                // Send email using EmailJS
+                const emailParams = {
+                    to_email: 'aamilhaq@gmail.com', // Replace with the admin's email
+                    message: 'Payment confirmed. Please find the attached image.'
+                };
+
+                // Using sendForm to handle file upload
+                await emailjs.sendForm('service_w7kztmf', 'YOUR_TEMPLATE_ID', '#uploadContainer');
+
+                alert("Image sent to admin successfully!");
+                window.location.href = 'thank_you.html';
+
+            } catch (error) {
+                console.error('Image sent to admin successfully!', error);
+                alert('Please wait for confirmation from the admin');
+            }
+        });
+    </script>
+
+</body>
+</html>
